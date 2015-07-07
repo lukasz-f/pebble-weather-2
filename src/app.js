@@ -46,7 +46,7 @@ var parseFeed = function(data, quantity) {
 // Make request to openweathermap.org
 ajax(
   {
-    url:'http://api.openweathermap.org/data/2.5/forecast?q=Katowice',
+    url:'http://api.openweathermap.org/data/2.5/forecast?q=Sosnowiec',
     type:'json'
   },
   function(data) {
