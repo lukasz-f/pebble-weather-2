@@ -2,6 +2,7 @@ var UI = require('ui');
 var ajax = require('ajax');
 var Vector2 = require('vector2');
 var Accel = require('ui/accel');
+var Vibe = require('ui/vibe');
 
 // Show splash screen while waiting for data
 var splashWindow = new UI.Window();
@@ -95,6 +96,8 @@ ajax(
     
     // Register for 'tap' events
     resultsMenu.on('accelTap', function(e) {
+      console.log('TAP!');
+      
       // Make another request to openweathermap.org
       ajax(
         {
@@ -107,6 +110,9 @@ ajax(
 
           // Update the Menu's first section
           resultsMenu.items(0, newItems);
+          
+          // Notify the user
+          Vibe.vibrate('short');
         },
         function(error) {
           console.log('Download failed: ' + error);
