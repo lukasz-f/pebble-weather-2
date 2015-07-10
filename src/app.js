@@ -1,6 +1,7 @@
 var UI = require('ui');
 var ajax = require('ajax');
 var Vector2 = require('vector2');
+var Accel = require('ui/accel');
 
 // Show splash screen while waiting for data
 var splashWindow = new UI.Window();
@@ -91,6 +92,27 @@ ajax(
       });
       detailCard.show();
     });
+    
+    // Register for 'tap' events
+    resultsMenu.on('accelTap', function(e) {
+      // Make another request to openweathermap.org
+      ajax(
+        {
+          url:'http://api.openweathermap.org/data/2.5/forecast?q=Sosnowiec',
+          type:'json'
+        },
+        function(data) {
+          // Create an array of Menu items
+          var newItems = parseFeed(data, 10);
+
+          // Update the Menu's first section
+          resultsMenu.items(0, newItems);
+        },
+        function(error) {
+          console.log('Download failed: ' + error);
+        }
+      );
+    });
 
     // Show the Menu, hide the splash
     resultsMenu.show();
@@ -101,3 +123,5 @@ ajax(
   }
 );
 
+// Prepare the accelerometer
+Accel.init();
