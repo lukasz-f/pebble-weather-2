@@ -65,6 +65,32 @@ ajax(
         items: menuItems
       }]
     });
+    
+    // Add an action for SELECT
+    resultsMenu.on('select', function(e) {
+      // Get that forecast
+      var forecast = data.list[e.itemIndex];
+
+      // Assemble body string
+      var content = forecast.weather[0].description;
+
+      // Capitalize first letter
+      content = content.charAt(0).toUpperCase() + content.substring(1);
+
+      // Add temperature, pressure etc
+      content += '\nTemperature: ' + Math.round(forecast.main.temp - 273.15) + '°C' +
+          '\nPressure: ' + Math.round(forecast.main.pressure) + ' mbar' +
+          '\nWind: ' + Math.round(forecast.wind.speed) + ' mph, ' + 
+      Math.round(forecast.wind.deg) + '°';
+      
+      // Create the Card for detailed view
+      var detailCard = new UI.Card({
+        title:'Details',
+        subtitle:e.item.subtitle,
+        body: content
+      });
+      detailCard.show();
+    });
 
     // Show the Menu, hide the splash
     resultsMenu.show();
