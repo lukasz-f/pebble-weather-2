@@ -80,8 +80,8 @@ ajax(
       // Add temperature, pressure etc
       content += '\nTemperature: ' + Math.round(forecast.main.temp - 273.15) + '°C' +
           '\nPressure: ' + Math.round(forecast.main.pressure) + ' mbar' +
-          '\nWind: ' + Math.round(forecast.wind.speed) + ' mph, ' + 
-      Math.round(forecast.wind.deg) + '°';
+          '\nWind: ' + Math.round(forecast.wind.speed / 1.609344) + ' km/h, ' + 
+          Math.round(forecast.wind.deg) + '°';
       
       // Create the Card for detailed view
       var detailCard = new UI.Card({
